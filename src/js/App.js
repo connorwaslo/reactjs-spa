@@ -4,7 +4,27 @@ import AnimatedText from './AnimatedText';
 import '../css/App.css';
 
 class App extends Component {
+    constructor() {
+        super();
+
+        this.state = {
+            isLoading: true
+        };
+    }
+
+    componentDidMount() {
+        this.setState({ isLoading: false });
+    }
+
     render() {
+        if (this.state.isLoading) {
+            return (
+                <div>
+                    <p>Loading...</p>
+                </div>
+            )
+        }
+
         return (
             <div className="App">
                 <PageContainer bgColor='#2994DA'>
@@ -15,7 +35,7 @@ class App extends Component {
                     <AnimatedText>
                         <h1>Hey there</h1>
                     </AnimatedText>
-                    <AnimatedText delay={1000}>
+                    <AnimatedText delay={500}>
                         <p>I'm Connor</p>
                     </AnimatedText>
                 </PageContainer>
