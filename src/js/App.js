@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import OnImagesLoaded from 'react-on-images-loaded';
 import PageContainer from "./PageContainer";
 import AnimatedText from './AnimatedText';
 import '../css/App.css';
@@ -26,28 +27,37 @@ class App extends Component {
         }
 
         return (
-            <div className="App">
-                <PageContainer bgColor='#2994DA'>
-                    <p>Howdy, I'm Connor!</p>
-                </PageContainer>
+            <OnImagesLoaded
+                onLoaded={() => console.log('loaded')}
+                onTimeout={() => console.log('timeout')}
+                timeout={7000}>
+                <div className="App">
+                    <div className='imageContainer'>
 
-                <PageContainer bgColor='#077CC8'>
-                    <AnimatedText>
-                        <h1>Hey there</h1>
-                    </AnimatedText>
-                    <AnimatedText delay={500}>
-                        <p>I'm Connor</p>
-                    </AnimatedText>
-                </PageContainer>
+                    </div>
 
-                <PageContainer bgColor='#043B5F'>
+                    <PageContainer bgColor='#2994DA'>
+                        <p>Howdy, I'm Connor!</p>
+                    </PageContainer>
 
-                </PageContainer>
+                    <PageContainer bgColor='#077CC8'>
+                        <AnimatedText>
+                            <h1>Hey there</h1>
+                        </AnimatedText>
+                        <AnimatedText delay={500}>
+                            <p>I'm Connor</p>
+                        </AnimatedText>
+                    </PageContainer>
 
-                <PageContainer bgColor='#011A2A'>
+                    <PageContainer bgColor='#043B5F'>
 
-                </PageContainer>
-            </div>
+                    </PageContainer>
+
+                    <PageContainer bgColor='#011A2A'>
+
+                    </PageContainer>
+                </div>
+            </OnImagesLoaded>
         );
     }
 }
