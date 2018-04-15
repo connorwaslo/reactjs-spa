@@ -3,18 +3,29 @@ import OnImagesLoaded from 'react-on-images-loaded';
 import PageContainer from "./PageContainer";
 import AnimatedText from './AnimatedText';
 import '../css/App.css';
+import 'animate.css';
 
 class App extends Component {
     constructor() {
         super();
 
         this.state = {
-            isLoading: true
+            isLoading: true,
+            showIntro1: false,
+            showIntro2: false
         };
     }
 
     componentDidMount() {
         this.setState({ isLoading: false });
+
+        this.firstTimer = setTimeout(() => this.setState({ showIntro1: true }), 1500);
+        this.secondTimer = setTimeout(() => this.setState({ showIntro2: true }), 3500);
+    }
+
+    componentDidUnmount() {
+        this.firstTimer.clearTimeout();
+        this.secondTimer.clearTimeout();
     }
 
     render() {
@@ -32,12 +43,16 @@ class App extends Component {
                 onTimeout={() => console.log('timeout')}
                 timeout={7000}>
                 <div className="App">
+                    {/* Header with PHX background */}
                     <div className='imageContainer'>
-
+                        {this._renderIntro1()}
+                        {this._renderIntro2()}
                     </div>
 
                     <PageContainer bgColor='#2994DA'>
-                        <p>Howdy, I'm Connor!</p>
+                        <AnimatedText>
+                            <h2>About Me</h2>
+                        </AnimatedText>
                     </PageContainer>
 
                     <PageContainer bgColor='#077CC8'>
@@ -59,6 +74,20 @@ class App extends Component {
                 </div>
             </OnImagesLoaded>
         );
+    }
+
+    _renderIntro1() {
+        if (this.state.showIntro1)
+            return <h1 id='intro1'>Hi! I'm Connor Waslo.</h1>;
+
+        return null;
+    }
+
+    _renderIntro2() {
+        if (this.state.showIntro2)
+            return <h1 id='intro2'>Phoenix-based social entrepreneur and developer.</h1>;
+
+        return null;
     }
 }
 

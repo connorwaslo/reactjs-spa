@@ -1,13 +1,28 @@
+@import "~animate.css";
+
 .App {
     text-align: center;
+    overflow: hidden;
 }
 
 .imageContainer {
+    text-align: left;
+    color: white;
+    padding-left: 10vw;
+    padding-top: 10vh;
     position: relative;
     width: 100%;
-    height: 1200px;
+    height: 1100px;
     overflow: hidden;
     background-image: url('../assets/phx_big.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+#intro1 {
+    animation: 1.5s jackInTheBox ease;
+}
+
+#intro2 {
+    animation: 1.4s jackInTheBox ease;
 }
