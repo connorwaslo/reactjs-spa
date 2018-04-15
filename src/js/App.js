@@ -3,12 +3,15 @@ import OnImagesLoaded from 'react-on-images-loaded';
 import { ParallaxProvider, Parallax } from 'react-scroll-parallax';
 import PageContainer from "./PageContainer";
 import AnimatedText from './AnimatedText';
+import phx from '../assets/phx_big.jpg';
 import '../css/App.css';
 import 'animate.css';
 
 class App extends Component {
     constructor() {
         super();
+
+        this.handleImgLoad = this._handleImgLoad.bind(this);
 
         this.state = {
             isLoading: true,
@@ -18,8 +21,6 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.setState({ isLoading: false });
-
         this.firstTimer = setTimeout(() => this.setState({ showIntro1: true }), 1500);
         this.secondTimer = setTimeout(() => this.setState({ showIntro2: true }), 3500);
     }
@@ -30,62 +31,77 @@ class App extends Component {
     }
 
     render() {
-        if (this.state.isLoading) {
-            return (
-                <div>
-                    <p>Loading...</p>
-                </div>
-            )
-        }
-
         return (
             <OnImagesLoaded
-                onLoaded={() => console.log('loaded')}
+                onLoaded={() => this.setState({ isLoading: false })}
                 onTimeout={() => console.log('timeout')}
                 timeout={7000}>
-                <div className="App">
-                    {/* Header with PHX background */}
-                    <ParallaxProvider>
-                        <Parallax
-                            offsetXMax={-10}
-                            offsetXMin={-10}
-                            offsetYMax={100}
-                            offsetYMin={-100}
-                            slowerScrollRate
-                            tag='figure'>
 
-                            <div className='imageContainer'>
-                                {this._renderIntro1()}
-                                {this._renderIntro2()}
-                            </div>
-                        </Parallax>
-                    </ParallaxProvider>
-
-                    <PageContainer bgColor='#2994DA'>
-                        <AnimatedText>
-                            <h2>About Me</h2>
-                        </AnimatedText>
-                    </PageContainer>
-
-                    <PageContainer bgColor='#077CC8'>
-                        <AnimatedText>
-                            <h1>Hey there</h1>
-                        </AnimatedText>
-                        <AnimatedText delay={500}>
-                            <p>I'm Connor</p>
-                        </AnimatedText>
-                    </PageContainer>
-
-                    <PageContainer bgColor='#043B5F'>
-
-                    </PageContainer>
-
-                    <PageContainer bgColor='#011A2A'>
-
-                    </PageContainer>
-                </div>
+                {this._renderLoading()}
+                {this._renderContent()}
             </OnImagesLoaded>
         );
+    }
+
+    _renderLoading() {
+        if (this.state.isLoading)
+            return <p>Loading...</p>;
+
+        return null;
+    }
+
+    _renderContent() {
+        return (
+            <div className="App">
+                {/* Header with PHX background */}
+                <ParallaxProvider>
+                    <Parallax
+                        offsetXMax={0}
+                        offsetXMin={0}
+                        offsetYMax={50}
+                        offsetYMin={-50}
+                        slowerScrollRate>
+
+                        <div className='imageContainer'>
+                            <img id='bgImage'
+                                 onLoad={this.handleImgLoad}
+                                 src={phx}
+                                 alt='background'/>
+                            {this._renderIntro1()}
+                            {this._renderIntro2()}
+                        </div>
+                    </Parallax>
+                </ParallaxProvider>
+
+                <PageContainer bgColor='#4E83EB'>
+                    <AnimatedText>
+                        <h2>About Me</h2>
+                    </AnimatedText>
+                    <AnimatedText delay={500}>
+                        <p>
+                            I'm a senior at BASIS Phoenix working on making a tech education accessible to everybody.
+                        </p>
+                    </AnimatedText>
+                </PageContainer>
+
+                <PageContainer bgColor='#2C6AE6'>
+                    <AnimatedText>
+                        <h1>Hey there</h1>
+                    </AnimatedText>
+                    <AnimatedText delay={500}>
+                        <p>I'm Connor</p>
+                    </AnimatedText>
+                </PageContainer>
+
+                <PageContainer bgColor='#0943B6'>
+
+                </PageContainer>
+
+                <PageContainer bgColor='#083388'>
+
+                </PageContainer>
+            </div>
+        )
     }
 
     _renderIntro1() {
@@ -100,6 +116,11 @@ class App extends Component {
             return <h1 id='intro2'>Phoenix-based social entrepreneur and developer.</h1>;
 
         return null;
+    }
+
+    _handleImgLoad() {
+        this.setState({ isLoading: false });
+        console.log('img loaded');
     }
 }
 

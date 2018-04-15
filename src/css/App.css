@@ -5,24 +5,34 @@
     overflow: hidden;
 }
 
+#bgImage {
+    width: 160%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -99;
+}
+
 .imageContainer {
     text-align: left;
     color: white;
     padding-left: 10vw;
-    padding-top: 10vh;
+    padding-top: 20vh;
     position: relative;
     width: 100%;
-    height: 1100px;
+    height: 100vh;
     overflow: hidden;
-    background-image: url('../assets/phx_big.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 
 #intro1 {
     animation: 1.5s jackInTheBox ease;
+    z-index: 0;
 }
 
 #intro2 {
     animation: 1.4s jackInTheBox ease;
+    z-index: 0;
 }
