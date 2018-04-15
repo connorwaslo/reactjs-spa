@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import OnImagesLoaded from 'react-on-images-loaded';
+import { ParallaxProvider, Parallax } from 'react-scroll-parallax';
 import PageContainer from "./PageContainer";
 import AnimatedText from './AnimatedText';
 import '../css/App.css';
@@ -44,10 +45,21 @@ class App extends Component {
                 timeout={7000}>
                 <div className="App">
                     {/* Header with PHX background */}
-                    <div className='imageContainer'>
-                        {this._renderIntro1()}
-                        {this._renderIntro2()}
-                    </div>
+                    <ParallaxProvider>
+                        <Parallax
+                            offsetXMax={-10}
+                            offsetXMin={-10}
+                            offsetYMax={100}
+                            offsetYMin={-100}
+                            slowerScrollRate
+                            tag='figure'>
+
+                            <div className='imageContainer'>
+                                {this._renderIntro1()}
+                                {this._renderIntro2()}
+                            </div>
+                        </Parallax>
+                    </ParallaxProvider>
 
                     <PageContainer bgColor='#2994DA'>
                         <AnimatedText>
