@@ -45,7 +45,6 @@ class App extends Component {
 
     _renderLoading() {
         if (this.state.isLoading) {
-            console.log('loadin...');
             return (
                 <div className='loadingContainer'>
                     <div className="lds-ripple">
